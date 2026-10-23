@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "osu! Browser Replays",
+  "description": "Watch osu!standard score replays on osu! profile pages.",
+  "version": "1.0.0",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "minimum_chrome_version": "114",
+  "permissions": [
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://osu.ppy.sh/*",
+    "https://assets.ppy.sh/*"
+  ],
+  "optional_host_permissions": [
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://osu.ppy.sh/users/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "osu! Browser Replays",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "viewer.html",
+        "viewer.js",
+        "parser-worker.js",
+        "performance-worker.js",
+        "vendor/rosu-pp-js/*",
+        "skin/vv_idke_trail/*"
+      ],
+      "matches": [
+        "https://osu.ppy.sh/*"
+      ]
+    }
+  ]
+}
