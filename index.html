@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>osu! Browser Replays for iPhone</title>
+  <style>
+    :root{font:17px/1.6 system-ui,sans-serif;color:#f5edf3;background:#19151d;color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:32px max(22px,env(safe-area-inset-left)) 48px}main{max-width:680px;margin:auto}a{color:#ff9bc8;text-underline-offset:4px}h1{font-size:clamp(32px,8vw,52px);line-height:1.1;letter-spacing:-.04em;margin:18px 0}h2{font-size:22px;margin-top:36px}p{color:#d6cbd3}.tag{color:#ff9bc8;letter-spacing:.1em;font-size:12px;font-weight:700}.notice{padding:16px 20px;border-left:3px solid #ff9bc8;background:#30232f;border-radius:0 16px 16px 0}.install{display:inline-flex;min-height:52px;align-items:center;padding:12px 24px;background:#ff9bc8;color:#2e1524;border-radius:30px;font-weight:650;text-decoration:none;margin:12px 0}.steps{padding-left:26px}.steps li{padding:10px 0 10px 6px}.steps strong{display:block}code{font-size:.9em;overflow-wrap:anywhere}details{padding:15px 0;border-bottom:1px solid #483645}summary{min-height:44px;cursor:pointer}footer{margin-top:44px;font-size:13px;color:#bdaeb9}.preview{margin:28px 0;padding:20px;border:1px solid #604452;border-radius:20px;background:#28202b}.score{padding:16px;background:#493a47;border-radius:12px}.muted{font-size:13px;color:#d5bdca}.replay{display:flex;align-items:center;gap:10px;min-height:48px;color:#ff9bc8;border-top:1px solid #ffffff18;margin-top:12px;font-weight:600}.preview-label{font-size:12px;color:#cbbac5;margin:0 0 12px}*:focus-visible{outline:3px solid #ff9bc8;outline-offset:5px}
+  </style>
+</head>
+<body><main>
+  <span class="tag">OSU! BROWSER REPLAYS · IPHONE</span>
+  <h1>Your scores.<br>Your Safari.<br>Press play.</h1>
+  <p>Watch osu!standard replays on profile pages, using the free Userscripts Safari extension. Set it up entirely on your iPhone.</p>
+  <div class="notice"><strong>Diagnostic prototype</strong><br>Automatic replay, beatmap and music downloads still need verification on a real iPhone. Installing this script does not guarantee playback. No Apple Developer membership is required.</div>
+  <a class="install" href="osu-replays.user.js">Open installation script</a>
+  <p class="muted">Then open Safari’s page menu → Extensions → Userscripts → install the detected script. Tapping this link alone does not install it.</p>
+  <div class="preview" aria-label="Proposed profile replay action">
+    <p class="preview-label">PROFILE ACTION PREVIEW · EXAMPLE SCORE</p>
+    <div class="score">The Best of Both Worlds<br><span class="muted">Mito’s Extra</span><p>S &nbsp; 99.14% &nbsp; 200 PP</p><div class="replay"><span aria-hidden="true">▶</span> Watch replay</div></div>
+  </div>
+  <h2>One phone. Four steps.</h2>
+  <ol class="steps">
+    <li><strong>Get Userscripts</strong><a href="https://apps.apple.com/app/userscripts/id1463298887">Install the free Userscripts app</a> and open it once. Keep its default scripts folder.</li>
+    <li><strong>Enable it in Safari</strong>In Settings → Apps → Safari → Extensions, enable Userscripts. Grant access to <code>osu.ppy.sh</code>. Names may differ on older iOS versions.</li>
+    <li><strong>Install our script</strong>Open the installation script above in Safari. Open the Userscripts extension menu and confirm installation. If Safari downloads it instead, use Files to move <code>osu-replays.user.js</code> into the folder shown by the Userscripts app, then open the extension menu once.</li>
+    <li><strong>Open your profile</strong><a href="https://osu.ppy.sh">Sign in to osu!</a>, open a profile’s Records section and tap <strong>Watch replay</strong>. Let the files load, then tap Play to enable audio.</li>
+  </ol>
+  <h2>If loading stops</h2>
+  <p>The diagnostic line identifies the stage that failed. Report that message, your iOS and Userscripts versions, and the public score link. Never share cookies, credentials, signed download links or private replay files.</p>
+  <details><summary>Beatmap or music did not download</summary><p>Confirm you are signed in and that osu! permits this download. Safari session handling and mirror redirects are still being tested. A replay without music does not pass this prototype’s acceptance check.</p></details>
+  <details><summary>No player or buttons appeared</summary><p>Check Userscripts is enabled for osu!, open its menu once and refresh the profile. Only supported osu!standard score cards receive replay actions.</p></details>
+  <details><summary>Update or remove the script</summary><p>For updates, revisit this page and install the latest script, replacing the previous copy rather than keeping two enabled. Remove it from the Userscripts folder or disable it through Userscripts. Player files are versioned so existing installs keep their matching engine.</p></details>
+  <details><summary>What leaves my phone?</summary><p>The player downloads its static code and artwork from this hosting origin. Score and replay data are processed in your browser; there is no processing backend or telemetry. The hosting provider and osu! receive ordinary web requests. Playback data is transferred locally between the osu! page and player frame.</p></details>
+  <footer>Unofficial; not affiliated with osu! or ppy Pty Ltd.<br><a href="https://github.com/vdutka/osu_replay">Project</a> · <a href="PRIVACY.md">Privacy</a> · <a href="THIRD_PARTY_NOTICES.md">Credits</a></footer>
+</main></body></html>
