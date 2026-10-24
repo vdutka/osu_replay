@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         osu! Browser Replays — iPhone prototype
 // @namespace    https://github.com/vdutka/osu_replay
-// @version      1.0.0.4
+// @version      1.0.0.5
 // @description  Diagnostic iPhone replay player; automatic download support is under device testing.
 // @match        https://osu.ppy.sh/*
 // @inject-into  content
@@ -9,6 +9,7 @@
 // @noframes
 // @grant        GM.xmlHttpRequest
 // ==/UserScript==
+(function () {
 "use strict";
 (() => {
   // src/userscript-protocol.ts
@@ -48,14 +49,14 @@
   };
 
   // src/userscript.ts
-  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.4/viewer.html");
+  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.5/viewer.html");
   if (playerUrl.protocol !== "https:" && !(playerUrl.protocol === "http:" && ["127.0.0.1", "localhost"].includes(playerUrl.hostname))) throw new Error("Replay player requires HTTPS.");
   var active = null;
   var scanTimer = 0;
   var checkDismissed = false;
   var wiredButtons = /* @__PURE__ */ new WeakSet();
   function installationCheck() {
-    document.documentElement.dataset.osuReplaysVersion = "1.0.0.4";
+    document.documentElement.dataset.osuReplaysVersion = "1.0.0.5";
     const existing = document.getElementById("osu-replays-install-check");
     if (!new URL(location.href).searchParams.has("osu_replays_check") || checkDismissed) {
       existing?.remove();
@@ -66,7 +67,7 @@
     notice.id = "osu-replays-install-check";
     notice.setAttribute("role", "status");
     notice.style.cssText = "position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:12px;right:12px;z-index:2147483646;max-width:480px;margin:auto;padding:16px 56px 16px 16px;border:1px solid #ff78b6;border-radius:16px;background:#29212bf5;color:#fff;font:15px/1.5 system-ui;box-shadow:0 10px 40px #0008;";
-    notice.append(`Replays ${"1.0.0.4"} is running. Open a profile\u2019s Records section for Watch replay buttons.`);
+    notice.append(`Replays ${"1.0.0.5"} is running. Open a profile\u2019s Records section for Watch replay buttons.`);
     const dismiss = document.createElement("button");
     dismiss.type = "button";
     dismiss.textContent = "\u2715";
@@ -319,4 +320,6 @@
   for (const event of ["pageshow", "popstate"]) window.addEventListener(event, scheduleScan);
   document.addEventListener("turbo:before-cache", close);
   attachButtons();
+})();
+
 })();
