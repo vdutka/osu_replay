@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         osu! Browser Replays — iPhone prototype
 // @namespace    https://github.com/vdutka/osu_replay
-// @version      1.0.0.2
+// @version      1.0.0.3
 // @description  Diagnostic iPhone replay player; automatic download support is under device testing.
 // @match        https://osu.ppy.sh/users/*
 // @inject-into  content
@@ -48,7 +48,7 @@
   };
 
   // src/userscript.ts
-  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.2/viewer.html");
+  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.3/viewer.html");
   if (playerUrl.protocol !== "https:" && !(playerUrl.protocol === "http:" && ["127.0.0.1", "localhost"].includes(playerUrl.hostname))) throw new Error("Replay player requires HTTPS.");
   var active = null;
   var scanTimer = 0;
