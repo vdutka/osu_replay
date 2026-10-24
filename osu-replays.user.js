@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         osu! Browser Replays — iPhone prototype
 // @namespace    https://github.com/vdutka/osu_replay
-// @version      1.0.0.1
+// @version      1.0.0.2
 // @description  Diagnostic iPhone replay player; automatic download support is under device testing.
 // @match        https://osu.ppy.sh/users/*
 // @inject-into  content
@@ -48,7 +48,7 @@
   };
 
   // src/userscript.ts
-  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.1/viewer.html");
+  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.2/viewer.html");
   if (playerUrl.protocol !== "https:" && !(playerUrl.protocol === "http:" && ["127.0.0.1", "localhost"].includes(playerUrl.hostname))) throw new Error("Replay player requires HTTPS.");
   var active = null;
   var scanTimer = 0;
@@ -109,7 +109,7 @@
       overlay.style.left = `${vv?.offsetLeft ?? 0}px`;
       const padding = getComputedStyle(overlay), availableHeight = height - parseFloat(padding.paddingTop) - parseFloat(padding.paddingBottom);
       const panelWidth = Math.min(1200, width - parseFloat(padding.paddingLeft) - parseFloat(padding.paddingRight));
-      const desiredHeight = width <= 640 && height > width ? panelWidth * 3 / 4 + 254 : 850;
+      const desiredHeight = width <= 640 && height > width ? panelWidth * 9 / 16 + 254 : 850;
       panel.style.height = `${Math.max(0, Math.min(desiredHeight, availableHeight))}px`;
     };
     const session = { overlay, frame, token, ids: new RequestIds(), inflight: 0, aborts: /* @__PURE__ */ new Set(), report: output, readyTimer: 0, scrollX: window.scrollX, scrollY: window.scrollY, overflow: document.documentElement.style.overflow, focus: document.activeElement instanceof HTMLElement ? document.activeElement : null, viewport };
