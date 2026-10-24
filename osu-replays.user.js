@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         osu! Browser Replays — iPhone prototype
 // @namespace    https://github.com/vdutka/osu_replay
-// @version      1.0.0.3
+// @version      1.0.0.4
 // @description  Diagnostic iPhone replay player; automatic download support is under device testing.
-// @match        https://osu.ppy.sh/users/*
+// @match        https://osu.ppy.sh/*
 // @inject-into  content
 // @run-at       document-idle
 // @noframes
@@ -48,10 +48,37 @@
   };
 
   // src/userscript.ts
-  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.3/viewer.html");
+  var playerUrl = new URL("https://vdutka.github.io/osu_replay/player/1.0.0-userscripts.4/viewer.html");
   if (playerUrl.protocol !== "https:" && !(playerUrl.protocol === "http:" && ["127.0.0.1", "localhost"].includes(playerUrl.hostname))) throw new Error("Replay player requires HTTPS.");
   var active = null;
   var scanTimer = 0;
+  var checkDismissed = false;
+  var wiredButtons = /* @__PURE__ */ new WeakSet();
+  function installationCheck() {
+    document.documentElement.dataset.osuReplaysVersion = "1.0.0.4";
+    const existing = document.getElementById("osu-replays-install-check");
+    if (!new URL(location.href).searchParams.has("osu_replays_check") || checkDismissed) {
+      existing?.remove();
+      return;
+    }
+    if (existing || !document.body) return;
+    const notice = document.createElement("div");
+    notice.id = "osu-replays-install-check";
+    notice.setAttribute("role", "status");
+    notice.style.cssText = "position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:12px;right:12px;z-index:2147483646;max-width:480px;margin:auto;padding:16px 56px 16px 16px;border:1px solid #ff78b6;border-radius:16px;background:#29212bf5;color:#fff;font:15px/1.5 system-ui;box-shadow:0 10px 40px #0008;";
+    notice.append(`Replays ${"1.0.0.4"} is running. Open a profile\u2019s Records section for Watch replay buttons.`);
+    const dismiss = document.createElement("button");
+    dismiss.type = "button";
+    dismiss.textContent = "\u2715";
+    dismiss.setAttribute("aria-label", "Dismiss installation check");
+    dismiss.style.cssText = "position:absolute;top:8px;right:8px;width:44px;height:44px;background:transparent;border:0;color:#ffadd3;font-size:20px;";
+    dismiss.onclick = () => {
+      checkDismissed = true;
+      notice.remove();
+    };
+    notice.append(dismiss);
+    document.body.append(notice);
+  }
   function report(session, message, failed = false) {
     if (active !== session) return;
     session.report.value = message;
@@ -260,11 +287,14 @@
     if (event.key === "Escape" && active) close();
   });
   function attachButtons() {
+    installationCheck();
+    if (!/^\/users\/[^/]+/.test(location.pathname)) return;
     for (const row of document.querySelectorAll(".play-detail")) {
-      if (row.querySelector(".osu-browser-replay-button")) continue;
+      const existing = row.querySelector(".osu-browser-replay-button");
+      if (existing && wiredButtons.has(existing)) continue;
       const link = row.querySelector('.play-detail__bg-link[href*="/scores/"]'), score = link?.pathname.match(/^\/scores\/(?:osu\/)?([1-9]\d*)\/?$/)?.[1];
       if (!score) continue;
-      const button = document.createElement("button");
+      const button = existing ?? document.createElement("button");
       button.type = "button";
       button.className = "osu-browser-replay-button";
       button.textContent = "\u25B6 Watch replay";
@@ -276,12 +306,17 @@
         event.stopPropagation();
         open(score);
       });
-      row.append(button);
+      wiredButtons.add(button);
+      if (!existing) row.append(button);
     }
   }
-  new MutationObserver(() => {
+  function scheduleScan() {
     clearTimeout(scanTimer);
     scanTimer = window.setTimeout(attachButtons, 80);
-  }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+  new MutationObserver(scheduleScan).observe(document.documentElement, { childList: true, subtree: true });
+  for (const event of ["turbo:load", "turbo:render", "turbolinks:load", "DOMContentLoaded"]) document.addEventListener(event, scheduleScan);
+  for (const event of ["pageshow", "popstate"]) window.addEventListener(event, scheduleScan);
+  document.addEventListener("turbo:before-cache", close);
   attachButtons();
 })();

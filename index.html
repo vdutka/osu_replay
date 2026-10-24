@@ -14,8 +14,10 @@
   <h1>Your scores.<br>Your Safari.<br>Press play.</h1>
   <p>Watch osu!standard replays on profile pages, using the free Userscripts Safari extension. Set it up entirely on your iPhone.</p>
   <div class="notice"><strong>Diagnostic prototype</strong><br>Automatic replay, beatmap and music downloads still need verification on a real iPhone. Installing this script does not guarantee playback. No Apple Developer membership is required.</div>
-  <a class="install" href="osu-replays.user.js">Open installation script</a>
-  <p class="muted">Then open Safari’s page menu → Extensions → Userscripts → install the detected script. Tapping this link alone does not install it.</p>
+  <a class="install" href="https://raw.githubusercontent.com/vdutka/osu_replay/gh-pages/osu-replays.user.js">Install version 1.0.0.4 in Userscripts</a>
+  <p class="muted">This opens the JavaScript source. Allow Userscripts on <code>raw.githubusercontent.com</code> for installation, then open Safari’s page menu → Extensions → Userscripts and confirm Install. Downloading a file alone does not install it.</p>
+  <p><a href="osu-replays-iphone.zip" download="osu-replays-iphone.zip">Download ZIP for installation through Files</a></p>
+  <p class="muted">The JavaScript loader is only about 18 KB; it loads the player separately. Its size is expected. It must be named <code>osu-replays.user.js</code>, not <code>.json</code>.</p>
   <div class="preview" aria-label="Proposed profile replay action">
     <p class="preview-label">PROFILE ACTION PREVIEW · EXAMPLE SCORE</p>
     <div class="score">The Best of Both Worlds<br><span class="muted">Mito’s Extra</span><p>S &nbsp; 99.14% &nbsp; 200 PP</p><div class="replay"><span aria-hidden="true">▶</span> Watch replay</div></div>
@@ -23,14 +25,14 @@
   <h2>One phone. Four steps.</h2>
   <ol class="steps">
     <li><strong>Get Userscripts</strong><a href="https://apps.apple.com/app/userscripts/id1463298887">Install the free Userscripts app</a> and open it once. Keep its default scripts folder.</li>
-    <li><strong>Enable it in Safari</strong>In Settings → Apps → Safari → Extensions, enable Userscripts. Grant access to <code>osu.ppy.sh</code>. Names may differ on older iOS versions.</li>
-    <li><strong>Install our script</strong>Open the installation script above in Safari. Open the Userscripts extension menu and confirm installation. If Safari downloads it instead, use Files to move <code>osu-replays.user.js</code> into the folder shown by the Userscripts app, then open the extension menu once.</li>
-    <li><strong>Open your profile</strong><a href="https://osu.ppy.sh">Sign in to osu!</a>, open a profile’s Records section and tap <strong>Watch replay</strong>. Let the files load, then tap Play to enable audio.</li>
+    <li><strong>Enable it in Safari</strong>In Settings → Apps → Safari → Extensions, enable Userscripts and Allow Website Access for <code>osu.ppy.sh</code>. For browser installation also allow <code>raw.githubusercontent.com</code>. In the Userscripts popup, keep both global injection and this script enabled. Names may differ on older iOS versions.</li>
+    <li><strong>Install or replace the script</strong>Use the source link above and confirm Install in Userscripts. If Safari downloads it, use the ZIP link instead: open Files → Downloads, tap the ZIP to extract it, then move <code>osu-replays.user.js</code> into the folder shown by the Userscripts app. Open the Safari Userscripts menu once. Replace the older copy; keep one enabled script.</li>
+    <li><strong>Verify it is running</strong><a href="https://osu.ppy.sh/?osu_replays_check=1">Open the installation check on osu!</a> and reload once. You should see “Replays 1.0.0.4 is running.” Then open any profile’s Records section and tap <strong>Watch replay</strong>. Let the files load, then tap Play to enable audio.</li>
   </ol>
   <h2>If loading stops</h2>
   <p>The diagnostic line identifies the stage that failed. Report that message, your iOS and Userscripts versions, and the public score link. Never share cookies, credentials, signed download links or private replay files.</p>
   <details><summary>Beatmap or music did not download</summary><p>Confirm you are signed in and that osu! permits this download. Safari session handling and mirror redirects are still being tested. A replay without music does not pass this prototype’s acceptance check.</p></details>
-  <details><summary>No player or buttons appeared</summary><p>Check Userscripts is enabled for osu!, open its menu once and refresh the profile. Only supported osu!standard score cards receive replay actions.</p></details>
+  <details><summary>The script is listed, but nothing happens on osu!</summary><p>Being listed under All scripts only means the file was found. On the installation-check page, open Safari → Userscripts, allow access to osu.ppy.sh, and confirm the global injection switch and this individual script are on. Reload the page. If the running message is absent, the script has not executed; replay downloads are not involved yet. Update older versions using the links above. This version also starts on the osu! home page so opening a profile through site navigation works.</p></details>
   <details><summary>Update or remove the script</summary><p>For updates, revisit this page and install the latest script, replacing the previous copy rather than keeping two enabled. Remove it from the Userscripts folder or disable it through Userscripts. Player files are versioned so existing installs keep their matching engine.</p></details>
   <details><summary>What leaves my phone?</summary><p>The player downloads its static code and artwork from this hosting origin. Score and replay data are processed in your browser; there is no processing backend or telemetry. The hosting provider and osu! receive ordinary web requests. Playback data is transferred locally between the osu! page and player frame.</p></details>
   <footer>Unofficial; not affiliated with osu! or ppy Pty Ltd.<br><a href="https://github.com/vdutka/osu_replay">Project</a> · <a href="PRIVACY.md">Privacy</a> · <a href="THIRD_PARTY_NOTICES.md">Credits</a></footer>
